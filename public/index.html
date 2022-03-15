@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto Api RESTful</title>
+</head>
+
+<body>
+    <div style=" text-align: center; font-family:Verdana;">
+        <div>
+            <div style="padding: 10px">
+                <h1>Proyecto Api RESTful</h1>
+            </div>
+
+            <div style="background-color: rgb(74, 196, 63); margin: 10px; padding:10px;">
+                <h2>PRODUCTOS</h2>
+                <span>Productos: </span>
+                <a href="/api/productos">Mostrar productos</a>
+            </div>
+
+            <hr>
+
+            <h2>Agregar Producto</h2>
+            <form action="/api/productos" method="POST">
+                <label for="title">Nombre</label>
+                <input type="text" name="title" id="title"><br>
+                <label for="price">Precio</label>
+                <input type="text" name="price" id="price"><br>
+                <!-- <label for="thumbnail">Imágen</label>
+                <input type="url" name="thumbnail" id="thumbnail"><br> -->
+                <br>
+                <input type="submit" value="Enviar">
+            </form>
+
+            <hr>
+
+            <h2>Buscar Producto por Id</h2>
+            <form action="/api/productos/:id" method="GET">
+                <label for="id">Buscar Id</label>
+                <input type="text" name="id" id="id"><br>
+                <br>
+                <input type="submit" value="Enviar">
+            </form>
+
+            <hr>
+
+            <div style="background-color: rgb(63, 143, 196); margin: 10px; padding:10px;">
+                <h2>ELIMINAR Producto</h2>
+                <form action="/api/productos/:id" method="DELETE">
+                    <label for="id">Eliminar Id</label>
+                    <input type="text" name="id" id="id"><br>
+                    <br>
+                    <input type="submit" value="Enviar">
+                </form>
+            </div>
+
+            <hr>
+
+        </div>
+    </div>
+</body>
+
+</html>
