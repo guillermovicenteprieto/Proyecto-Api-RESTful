@@ -16,9 +16,6 @@ app.use(function (err, req, res, next) {
     })
 })
 
-//no me funciona este método:
-//app.use('/static', express.static(__dirname + 'public/index.html'))
-
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/index.html')
 })
@@ -28,10 +25,10 @@ app.route('/api/productos')
     .get((req, res) => {
         res.send({ productos })
     })
+
     // GET '/api/productos/:id' -> devuelve un producto según su id.
-    //para obtener un producto en especifico, desde html
     app.get('/api/productos/:id', (req, res) => {
-        const id = req.query.id
+        const id = req.params.id
         const producto = productos[id - 1]
         console.log(producto)
         if (!producto) {
@@ -45,37 +42,38 @@ app.route('/api/productos')
     .post('/api/productos/', (req, res) => {
         const productoAgregado = req.body
         productoAgregado.id = productos.length + 1
+        productoAgregado.title = (`Producto ${productoAgregado.id}`)
+        productoAgregado.price = Math.floor(Math.random() * 100)
+        productoAgregado.thumbnail = 'https://via.placeholder.com/200'
         if (productoAgregado.title === ""
             || productoAgregado.price === "") {
             res.status(400).send('Error en la petición')
             return
         } else {
+            console.log(productoAgregado)
             productos.push(productoAgregado)
-            console.log({ productos })
             res.send({ productos })
             return
         }
     })
 
-    //para obtener un producto, manualmente desde la ur
-    //empleado para verificar en postman
-    app.get('/api/productos/id/:num', (req, res) => {
-        const id = req.params.num
+    // PUT '/api/productos/:id' -> recibe y actualiza un producto según su id.
+    app.put('/api/productos/:id', (req, res) => {
+        const id = req.params.id
+        console.log("Producto PUT: id " + id)
         const producto = productos[id - 1]
         console.log(producto)
         if (!producto) {
             res.status(404).send('Producto no encontrado')
             return
         }
-        res.send({producto})
+        res.send({ producto })
     })
 
-// PUT '/api/productos/:id' -> recibe y actualiza un producto según su id.
-// DELETE '/api/productos/:id' -> elimina un producto según su id.
-
+    // DELETE '/api/productos/:id' -> elimina un producto según su id.
     app.delete('/api/productos/:id', (req, res) => {
         const id = req.params.id
-        console.log("Producto eliminado: id " + id)
+        console.log("Producto DELETE: id " + id)
         const producto = productos[id - 1];
         console.log(producto)
         if (!producto) {

@@ -5,7 +5,7 @@ port = process.env.PORT || 5000;
 const Productos = require ('./productos');
 const productos = new Productos();
 
-console.log (productos);
+//console.log (productos);
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
